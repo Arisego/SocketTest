@@ -16,10 +16,10 @@ int main() {
     int sockfd;
     char buffer[MAXLINE];
     const char *hello = "Hello from server";
-    struct sockaddr_in6 servaddr, cliaddr;
+    struct sockaddr_in servaddr, cliaddr;
      
     // Creating socket file descriptor
-    if ( (sockfd = socket(AF_INET6, SOCK_DGRAM, 0)) < 0 ) {
+    if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
         perror("socket creation failed");
         exit(EXIT_FAILURE);
     }
@@ -28,9 +28,9 @@ int main() {
     memset(&cliaddr, 0, sizeof(cliaddr));
      
     // Filling server information
-    servaddr.sin6_family    = AF_INET6;
-    servaddr.sin6_addr = IN6ADDR_LOOPBACK_INIT;
-    servaddr.sin6_port = htons(PORT);
+    servaddr.sin_family    = AF_INET; // IPv4
+    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_port = htons(PORT);
      
     // Bind the socket with the server address
     if ( bind(sockfd, (const struct sockaddr *)&servaddr, 

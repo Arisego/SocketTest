@@ -29,7 +29,8 @@ int main() {
     // Filling server information
     servaddr.sin6_family = AF_INET6;
     servaddr.sin6_port = htons(PORT);
-    servaddr.sin6_addr = IN6ADDR_ANY_INIT;
+
+    inet_pton(AF_INET6, "::ffff:127.0.0.1", servaddr.sin6_addr.s6_addr);
      
     int n;
     socklen_t len;
