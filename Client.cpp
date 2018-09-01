@@ -31,7 +31,24 @@ int main() {
     servaddr.sin6_port = htons(PORT);
 
     inet_pton(AF_INET6, "::ffff:127.0.0.1", servaddr.sin6_addr.s6_addr);
-     
+
+#pragma region DualStackBind
+    /** 
+     * Bind socket to IPv6 address will make the mapped IPv4 address unreachable, but I do not get an error.
+     * Uncomment bellow code to see the result, your server should be in IPv4 version as this commit is in.
+     * */
+    // struct sockaddr_in6 localAddr;
+    // memset(&localAddr, 0, sizeof(localAddr));
+    // localAddr.sin6_family = AF_INET6;
+    // localAddr.sin6_addr = IN6ADDR_LOOPBACK_INIT;
+    // if ( bind(sockfd, (const struct sockaddr *)&localAddr, 
+    //         sizeof(localAddr)) < 0 )
+    // {
+    //     perror("bind to local failed");
+    //     exit(EXIT_FAILURE);
+    // }
+#pragma endregion
+
     int n;
     socklen_t len;
      
